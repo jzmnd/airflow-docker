@@ -1,0 +1,10 @@
+version: "2.1"
+
+services:
+  airflow_env:
+    environment:
+      - FERNET_KEY=${FERNET_KEY}
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=airflow
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
