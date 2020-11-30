@@ -110,6 +110,9 @@ case "$1" in
       # With the "Local" and "Sequential" executors it should all run in one container.
       airflow scheduler &
     fi
+    sleep 10
+    airflow create_user -r Admin -u $ADMIN_USER -e admin@admin.com -f admin -l admin -p $ADMIN_PASSWORD
+    sleep 10
     exec airflow webserver
     ;;
   worker|scheduler)

@@ -8,5 +8,5 @@ Includes requirements for common data science projects.
 
 ## Usage
 
-- Set the environment variables `POSTGRES_PASSWORD`, `REDIS_PASSWORD`, `FERNET_KEY`
+- Set the environment variables `POSTGRES_PASSWORD`, `REDIS_PASSWORD`, `FERNET_KEY`, `ADMIN_USER`, `ADMIN_PASSWORD`
 - Run `make start` to run services and `make stop` to shutdown
