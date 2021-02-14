@@ -3,6 +3,8 @@ version: "2.1"
 services:
   redis:
     image: redis:5.0.10
+    depends_on:
+      - statsd-exporter
     command: redis-server --requirepass ${REDIS_PASSWORD}
 
   postgres:
@@ -10,6 +12,8 @@ services:
     extends:
       file: airflow-env.yml
       service: airflow_env
+    depends_on:
+      - statsd-exporter
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
@@ -25,6 +29,7 @@ services:
     depends_on:
       - postgres
       - redis
+      - statsd-exporter
     environment:
       - LOAD_EXAMPLES=n
       - EXECUTOR=Celery
@@ -87,3 +92,11 @@ services:
     environment:
       - EXECUTOR=Celery
     command: worker
+
+  statsd-exporter:
+    image: prom/statsd-exporter:latest
+    container_name: airflow-statsd-exporter
+    command: "--statsd.listen-udp=:8125 --web.listen-address=:9102"
+    ports:
+      - 9123:9102
+      - 8125:8125/udp
